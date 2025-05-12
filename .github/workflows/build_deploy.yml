@@ -1,0 +1,46 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          pip install requests beautifulsoup4 tqdm
+
+      - name: CSV ➜ JSON
+        run: python scripts/csv_to_json.py
+
+      - name: Fill missing fields
+        run: python scripts/fill_missing.py
+
+      - name: Merge to games_full.json
+        run: jq -s '.' details/**/*.json > public/games_full.json
+
+      - name: Build React (vite)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: |
+          npm ci
+          npm run build
+          echo "tabletop-paradise" > public/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: gh-pages
+          publish_dir: ./public
