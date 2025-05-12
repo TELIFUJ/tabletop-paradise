@@ -1,0 +1,11 @@
+{
+  "minPlayers": 2,
+  "maxPlayers": 4,
+  "playTime": 30,
+  "difficulty": 3,
+  "socialIntensity": 3,
+  "learnEase": 3,
+  "description": "",
+  "imageUrl": "",
+  "similar": []
+}
