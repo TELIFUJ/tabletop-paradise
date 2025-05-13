@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>桌遊天堂 - 展示平台</title>
+  <title>桌上有戲玩空間 - 展示平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { font-family: sans-serif; padding: 1rem; background-color: #f9f9f9; }
@@ -14,16 +14,27 @@
       border-radius: 6px;
       background-color: #fff;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: auto;
     }
     .game-card img {
-      max-width: 100px;
+      max-width: 120px;
       float: right;
       margin-left: 1rem;
+      border-radius: 4px;
+    }
+    .category {
+      display: inline-block;
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 5px;
+      font-size: 0.85em;
     }
   </style>
 </head>
 <body>
-  <h1>桌遊天堂推薦平台</h1>
+  <h1>桌上有戲玩空間推薦平台</h1>
   <input id="search" placeholder="搜尋遊戲名稱或分類…" style="width:100%;padding:8px;margin-bottom:1rem">
 
   <div id="gameList">載入中...</div>
@@ -49,16 +60,20 @@
         gameList.innerHTML = "找不到符合條件的遊戲。";
         return;
       }
+
       games.forEach(g => {
         const div = document.createElement("div");
         div.className = "game-card";
         div.innerHTML = `
           <h3>${g.title || "(未命名)"}</h3>
+          <p>
+            ${(g.categories || []).map(c => `<span class="category">${c}</span>`).join("")}
+          </p>
           <p>人數：${g.minPlayers ?? "?"}-${g.maxPlayers ?? "?"}</p>
           <p>時間：${g.playTime ?? "?"} 分鐘</p>
           <p>難度：${g.difficulty ?? "?"}，社交：${g.socialIntensity ?? "?"}，易學：${g.learnEase ?? "?"}</p>
           <p>${g.description || "(無描述)"}</p>
-          ${g.imageUrl ? `<img src="${g.imageUrl}" alt="${g.title}">` : ""}
+          ${g.imageUrl ? `<img src="${g.imageUrl}" alt="封面圖" onerror="this.style.display='none'">` : ""}
         `;
         gameList.appendChild(div);
       });
