@@ -27,6 +27,9 @@ jobs:
       - name: Fill missing fields
         run: python scripts/fill_missing.py
 
+      - name: Create public folder
+        run: mkdir -p public
+
       - name: Merge JSON to one file
         run: jq -s '.' details/**/*.json > public/games_full.json
 
