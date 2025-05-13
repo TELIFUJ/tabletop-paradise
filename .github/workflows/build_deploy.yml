@@ -27,10 +27,10 @@ jobs:
       - name: Fill missing fields
         run: python scripts/fill_missing.py
 
-      - name: Merge to games_full.json
+      - name: Merge JSON to one file
         run: jq -s '.' details/**/*.json > public/games_full.json
 
-      - name: Build React (vite)
+      - name: Build static site (vite)
         uses: actions/setup-node@v4
         with:
           node-version: '20'
