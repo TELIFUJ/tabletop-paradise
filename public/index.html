@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>桌遊天堂 - 展示平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: sans-serif; padding: 1rem; }
+    .game-card { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 6px; }
+    .game-card img { max-width: 100px; }
+  </style>
+</head>
+<body>
+  <h1>桌遊天堂推薦平台</h1>
+  <input id="search" placeholder="搜尋遊戲名稱或分類…" style="width:100%;padding:8px;margin-bottom:1rem">
+
+  <div id="gameList">載入中...</div>
+
+  <script>
+    const gameList = document.getElementById("gameList");
+    const searchInput = document.getElementById("search");
+
+    async function loadGames() {
+      const res = await fetch("games_full.json");
+      const data = await res.json();
+      window.allGames = data;
+      render(data);
+    }
+
+    function render(games) {
+      gameList.innerHTML = "";
+      games.forEach(g => {
+        const div = document.createElement("div");
+        div.className = "game-card";
+        div.innerHTML = `
+          <h3>${g.title || "(未命名)"}</h3>
+          <p>人數：${g.minPlayers}-${g.maxPlayers}</p>
+          <p>時間：${g.playTime} 分鐘</p>
+          <p>難度：${g.difficulty}，社交：${g.socialIntensity}，易學：${g.learnEase}</p>
+          <p>${g.description || "(無描述)"}</p>
+          ${g.imageUrl ? `<img src="${g.imageUrl}">` : ""}
+        `;
+        gameList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const filtered = window.allGames.filter(g =>
+        g.title?.toLowerCase().includes(keyword) ||
+        g.categories?.some(c => c.toLowerCase().includes(keyword))
+      );
+      render(filtered);
+    });
+
+    loadGames();
+  </script>
+</body>
+</html>
