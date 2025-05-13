@@ -1,11 +1,16 @@
 {
-  "minPlayers": 2,
-  "maxPlayers": 4,
-  "playTime": 30,
-  "difficulty": 3,
-  "socialIntensity": 3,
+  "id": "g002",
+  "title": "12 Days of Christmas",
+  "categories": [
+    "派對"
+  ],
+  "minPlayers": 3,
+  "maxPlayers": 6,
+  "playTime": 20,
+  "difficulty": 2,
+  "socialIntensity": 2,
   "learnEase": 3,
-  "description": "",
-  "imageUrl": "",
+  "description": "節慶交換禮物的策略遊戲",
+  "imageUrl": "https://telifuj.github.io/tabletop-paradise/images/g002.jpg",
   "similar": []
 }

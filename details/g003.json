@@ -1,11 +1,16 @@
 {
+  "id": "g003",
+  "title": "13道線索",
+  "categories": [
+    "推理"
+  ],
   "minPlayers": 2,
-  "maxPlayers": 4,
+  "maxPlayers": 6,
   "playTime": 30,
   "difficulty": 3,
-  "socialIntensity": 3,
+  "socialIntensity": 2,
   "learnEase": 3,
-  "description": "",
-  "imageUrl": "",
+  "description": "破案與角色扮演結合的經典桌遊",
+  "imageUrl": "https://telifuj.github.io/tabletop-paradise/images/g003.jpg",
   "similar": []
 }

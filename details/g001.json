@@ -1,11 +1,16 @@
 {
+  "id": "g001",
+  "title": "1~10數學學習盒",
+  "categories": [
+    "學習"
+  ],
   "minPlayers": 2,
   "maxPlayers": 4,
   "playTime": 30,
   "difficulty": 3,
   "socialIntensity": 3,
   "learnEase": 3,
-  "description": "",
-  "imageUrl": "",
+  "description": "訓練幼兒數字概念與加減",
+  "imageUrl": "https://telifuj.github.io/tabletop-paradise/images/g001.jpg",
   "similar": []
 }
