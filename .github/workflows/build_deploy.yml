@@ -22,7 +22,7 @@ jobs:
           pip install requests beautifulsoup4 tqdm
 
       - name: CSV ➜ JSON
-        run: python scripts/csv_to_json.py
+        run: python scripts/convert_csv_to_json.py
 
       - name: Fill missing fields
         run: python scripts/fill_missing.py
