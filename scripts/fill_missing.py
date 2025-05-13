@@ -101,6 +101,7 @@ def merge_data(original: dict, fetched: dict) -> dict:
 def main():
     # 收集所有 details/*.json + details/b/*.json
     detail_files = sorted(DETAILS.glob("*.json")) + sorted((DETAILS / "b").glob("*.json"))
+    detail_files = detail_files[:20]  # ✅ 測試用途：只補前 20 筆，避免補太久卡住
 
     need_fill: list[Path] = []
     for f in detail_files:
@@ -130,10 +131,3 @@ def main():
     print("✅ 補資料腳本完成")
     if ERR_LOG.exists():
         print(f"⚠️  錯誤或超時請查看 {ERR_LOG}")
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        sys.exit("Interrupted")
