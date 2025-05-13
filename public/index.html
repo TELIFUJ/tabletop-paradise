@@ -45,7 +45,7 @@
 
     async function loadGames() {
       try {
-        const res = await fetch("games_full.json");
+        const res = await fetch("games_full.json?v=" + Date.now());
         const data = await res.json();
         window.allGames = data;
         render(data);
