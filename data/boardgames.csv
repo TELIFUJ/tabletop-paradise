@@ -1,7 +1,7 @@
 id,title,categories,minPlayers,maxPlayers,playTime,difficulty,socialIntensity,learnEase,description,imageUrl,similar
-g001,1~10數學學習盒,,,,,,,,,,
-g002,12 Days of Christmas,,,,,,,,,,
-g003,13道線索,,,,,,,,,,
+g001,1~10數學學習盒,學習,2,4,30,3,3,3,訓練幼兒數字概念與加減,https://telifuj.github.io/tabletop-paradise/images/g001.jpg,
+g002,12 Days of Christmas,派對,3,6,20,2,2,3,節慶交換禮物的策略遊戲,https://telifuj.github.io/tabletop-paradise/images/g002.jpg,
+g003,13道線索,推理,2,6,30,3,2,3,破案與角色扮演結合的經典桌遊,https://telifuj.github.io/tabletop-paradise/images/g003.jpg,
 g004,3D迷宮塔,,,,,,,,,,
 g005,5秒定律,,,,,,,,,,
 g006,5秒定律:大盒版,,,,,,,,,,
