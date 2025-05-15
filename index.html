@@ -32,16 +32,18 @@
       font-size: 0.85em;
     }
   </style>
+  <!-- 加上 Fuse.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 </head>
 <body>
   <h1>桌上有戲玩空間推薦平台</h1>
   <input id="search" placeholder="搜尋遊戲名稱或分類…" style="width:100%;padding:8px;margin-bottom:1rem">
-
   <div id="gameList">載入中...</div>
 
   <script>
     const gameList = document.getElementById("gameList");
     const searchInput = document.getElementById("search");
+    let fuse;
 
     async function loadGames() {
       try {
@@ -49,9 +51,28 @@
         const data = await res.json();
         window.allGames = data;
         render(data);
+        setupSearch(data); // 初始化搜尋
       } catch (e) {
         gameList.innerHTML = "無法載入遊戲資料。";
       }
+    }
+
+    function setupSearch(games) {
+      fuse = new Fuse(games, {
+        keys: ['title', 'categories'],
+        threshold: 0.3,
+        ignoreLocation: true,
+      });
+
+      searchInput.addEventListener("input", () => {
+        const keyword = searchInput.value.trim();
+        if (!keyword) {
+          render(games);
+          return;
+        }
+        const results = fuse.search(keyword).map(r => r.item);
+        render(results);
+      });
     }
 
     function render(games) {
@@ -94,15 +115,6 @@
         gameList.appendChild(div);
       });
     }
-
-    searchInput.addEventListener("input", () => {
-      const keyword = searchInput.value.trim().toLowerCase();
-      const filtered = window.allGames.filter(g =>
-        (g.title || "").toLowerCase().includes(keyword) ||
-        (g.categories || []).some(c => c.toLowerCase().includes(keyword))
-      );
-      render(filtered);
-    });
 
     loadGames();
   </script>
