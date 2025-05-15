@@ -31,10 +31,9 @@ jobs:
         run: mkdir -p public
 
       - name: Merge JSON to one file
-        run: jq -s '.' details/**/*.json > public/games_full.json
+        run: jq -s '.' details/*.json > public/games_full.json
 
-      # ✅ 改這邊：Node 不再強制跑 npm ci，防止錯誤
-      - name: Set up Node
+      - name: Set up Node (Optional for frontend build)
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -54,6 +53,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # 👈 加這行！
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./public
