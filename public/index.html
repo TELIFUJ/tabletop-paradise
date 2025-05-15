@@ -64,16 +64,32 @@
       games.forEach(g => {
         const div = document.createElement("div");
         div.className = "game-card";
+
         div.innerHTML = `
           <h3>${g.title || "(未命名)"}</h3>
-          <p>
-            ${(g.categories || []).map(c => `<span class="category">${c}</span>`).join("")}
-          </p>
-          <p>人數：${g.minPlayers ?? "?"}-${g.maxPlayers ?? "?"}</p>
-          <p>時間：${g.playTime ?? "?"} 分鐘</p>
-          <p>難度：${g.difficulty ?? "?"}，社交：${g.socialIntensity ?? "?"}，易學：${g.learnEase ?? "?"}</p>
+
+          ${(g.categories || []).length > 0 ? `
+            <p>${(g.categories || []).map(c => `<span class="category">${c}</span>`).join("")}</p>
+          ` : ""}
+
+          ${g.minPlayers && g.maxPlayers ? `<p>人數：${g.minPlayers}-${g.maxPlayers}</p>` : ""}
+          ${g.playTime ? `<p>時間：${g.playTime} 分鐘</p>` : ""}
+
+          ${(g.difficulty || g.socialIntensity || g.learnEase) ? `
+            <p>
+              難度：${g.difficulty ?? "?"}，
+              社交：${g.socialIntensity ?? "?"}，
+              易學：${g.learnEase ?? "?"}
+            </p>
+          ` : ""}
+
           <p>${g.description || "(無描述)"}</p>
-          ${g.imageUrl ? `<img src="${g.imageUrl}" alt="封面圖" onerror="this.style.display='none'">` : ""}
+
+          <img
+            src="${g.imageUrl || 'images/placeholder.jpg'}"
+            alt="封面圖"
+            onerror="this.onerror=null;this.src='images/placeholder.jpg';"
+          >
         `;
         gameList.appendChild(div);
       });
@@ -92,5 +108,3 @@
   </script>
 </body>
 </html>
-<!-- force deploy Tue May 13 13:05:19 UTC 2025 -->
-<!-- force redeploy Tue May 13 13:34:18 UTC 2025 -->
