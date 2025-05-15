@@ -118,11 +118,22 @@ def main():
             logging.warning("缺少 title：%s", jfile.name)
             continue
 
-        gid = bgg_search(title)
-        if not gid:
-            continue
+        try:
+            gid = bgg_search(title)
+            if not gid:
+                fetched = {}
+            else:
+                fetched = bgg_scrape(gid)
+        except Exception as e:
+            logging.warning("skip %s: %s", title, e)
+            fetched = {}
 
-        fetched     = bgg_scrape(gid)
+        # ⬇⬇ 永遠補 fallback，確保檔案有寫入
+        if not fetched.get("description"):
+            fetched["description"] = "（尚無簡介，歡迎日後補充！）"
+        if not fetched.get("imageUrl"):
+            fetched["imageUrl"] = "https://telifuj.github.io/tabletop-paradise/images/placeholder.jpg"
+
         data_filled = merge_data(data, fetched)
         jfile.write_text(json.dumps(data_filled, ensure_ascii=False, indent=2))
 
@@ -131,3 +142,7 @@ def main():
     print("✅ 補資料腳本完成")
     if ERR_LOG.exists():
         print(f"⚠️  錯誤或超時請查看 {ERR_LOG}")
+
+
+if __name__ == "__main__":
+    main()
